@@ -27,5 +27,5 @@ $api->version('v1', function ($api) {
 
 $api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
     $api->get('/auth/login', 'App\Http\Controllers\AuthenticatedController@index');
-    $api->post('/comments/create', 'App\Http\Controllers\AuthenticatedController@createComment');
+    $api->post('/status_updates/create', 'App\Http\Controllers\AuthenticatedController@createStatusUpdate');
 });
