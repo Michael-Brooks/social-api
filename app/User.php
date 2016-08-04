@@ -122,7 +122,7 @@ class User extends Model implements Authenticatable, JWTSubject
 	    return $this->friendsOfMine->merge($this->friendOf);
 	}
 
-	public function status_updates()
+	public function statusUpdates()
 	{
 		return $this->hasMany('App\StatusUpdate');
 	}

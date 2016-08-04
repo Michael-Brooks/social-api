@@ -20,4 +20,9 @@ class UserController extends Controller
     {
         return User::username($username)->first()->friends;
     }
+
+    public function statusUpdates($username)
+    {
+        return User::username($username)->first()->statusUpdates;
+    }
 }
