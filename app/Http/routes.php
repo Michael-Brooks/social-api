@@ -20,6 +20,7 @@ $api->version('v1', function ($api) {
         $api->get('/', 'App\Http\Controllers\UserController@index');
         $api->get('/{username}', 'App\Http\Controllers\UserController@show');
         $api->get('/{username}/friends', 'App\Http\Controllers\UserController@friends');
+        $api->get('/{id}/status_updates', 'App\Http\Controllers\UserController@statusUpdate')
     });
 
 });
