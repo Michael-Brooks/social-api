@@ -20,7 +20,7 @@ $api->version('v1', function ($api) {
         $api->get('/', 'App\Http\Controllers\UserController@index');
         $api->get('/{username}', 'App\Http\Controllers\UserController@show');
         $api->get('/{username}/friends', 'App\Http\Controllers\UserController@friends');
-        $api->get('/{username}/status_updates', 'App\Http\Controllers\UserController@statusUpdates');
+        $api->get('/{username}/status_updates', 'App\Http\Controllers\StatusController@statusUpdates');
     });
 
 });
@@ -28,4 +28,6 @@ $api->version('v1', function ($api) {
 $api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
     $api->get('/auth/login', 'App\Http\Controllers\AuthenticatedController@index');
     $api->post('/status_updates/create', 'App\Http\Controllers\AuthenticatedController@createStatusUpdate');
+    $api->post('/status_updates/{id}/edit', 'App\Http\Controllers\AuthenticatedController@editStatusUpdate');
+    $api->post('/status_updates/{id}/delete', 'App\Http\Controllers\AuthenticatedController@deleteStatusUpdate');
 });

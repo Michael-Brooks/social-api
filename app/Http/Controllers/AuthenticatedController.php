@@ -24,7 +24,7 @@ class AuthenticatedController extends Controller
         return $this->auth->user();
     }
 
-    public function createComment(Request $request)
+    public function createStatusUpdate(Request $request)
     {
         $user = $this->auth->user();
 
@@ -34,6 +34,26 @@ class AuthenticatedController extends Controller
 
         $status = new StatusUpdate();
         $status->message = $request->message;
-        $user->status_updates()->save($status);
+        $user->statusUpdates()->save($status);
+
+        return $this->response->created();
+    }
+
+    public function editStatusUpdate(Request $request, $id)
+    {
+        $user = $this->auth->user();
+
+        $comment = $user->statusUpdates->find($id);
+
+        $comment->update(['message' => $request->message]);
+    }
+
+    public function deleteStatusUpdate(Request $request, $id)
+    {
+        $user = $this->auth->user();
+
+        $comment = $user->statusUpdates->find($id);
+
+        $comment->delete();
     }
 }

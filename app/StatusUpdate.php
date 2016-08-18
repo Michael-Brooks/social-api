@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StatusUpdate extends Model
 {
-    protected $hidden = ['id', 'user_id'];
+    protected $hidden = ['user_id'];
 
     /**
      * The attributes that are mass assignable.
