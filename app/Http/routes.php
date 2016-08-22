@@ -14,6 +14,10 @@
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
+    $api->get('/', function() {
+        return 'Your very own social networking website.';
+    });
+
     $api->post('/auth', 'App\Http\Controllers\Auth\AuthController@backend');
 
     $api->group(['prefix' => 'users'], function ($api) {
