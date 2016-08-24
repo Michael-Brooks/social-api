@@ -56,4 +56,45 @@ class AuthenticatedController extends Controller
 
         $comment->delete();
     }
+
+    public function addFriendRequest(Request $request, $username)
+    {
+        $user = $this->auth->user();
+
+        $friend = $user::username($username);
+
+        $user->addFriend($friend);
+    }
+
+    public function approveFriendRequest(Request $request, $username)
+    {
+        $user = $this->auth->user();
+
+        $friendFromRequest = $username::username($username);
+
+        $friendFromRequest->friends()->updateExistingPivot(
+            $user->id,
+            [
+                'approved' => 1
+            ]
+        );
+    }
+
+    public function ignoreFriendRequest(Request $request, $username)
+    {
+        $user = $this->auth->user();
+
+        $friendFromRequest = $username::username($username);
+
+        /**
+         * Reason for setting this to 2 is because we need to flag it so it
+         * doesn't show in the notifications again
+         */
+        $friendFromRequest->friends()->updateExistingPivot(
+            $user->id,
+            [
+                'approved' => 2
+            ]
+        );
+    }
 }
