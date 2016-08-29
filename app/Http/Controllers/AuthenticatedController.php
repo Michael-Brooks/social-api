@@ -5,6 +5,7 @@ use App\StatusUpdate;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Helpers;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\User;
 
 class AuthenticatedController extends Controller
 {
@@ -57,20 +58,22 @@ class AuthenticatedController extends Controller
         $comment->delete();
     }
 
-    public function addFriendRequest(Request $request, $username)
+    public function addFriendRequest(Request $request)
     {
         $user = $this->auth->user();
 
-        $friend = $user::username($username);
+        $friend = User::find($request->get('id'));
 
         $user->addFriend($friend);
+
+        return $this->response->created();
     }
 
-    public function approveFriendRequest(Request $request, $username)
+    public function approveFriendRequest(Request $request)
     {
         $user = $this->auth->user();
 
-        $friendFromRequest = $username::username($username);
+        $friendFromRequest = $username::find($request->id);
 
         $friendFromRequest->friends()->updateExistingPivot(
             $user->id,
