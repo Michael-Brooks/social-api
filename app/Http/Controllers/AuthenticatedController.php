@@ -64,6 +64,8 @@ class AuthenticatedController extends Controller
         $friend = $user::username($username);
 
         $user->addFriend($friend);
+
+        return $this->response->created();
     }
 
     public function approveFriendRequest(Request $request, $username)
