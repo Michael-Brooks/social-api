@@ -18,6 +18,8 @@ $api->version('v1', function ($api) {
         return 'Your very own social networking website.';
     });
 
+    $api->post('/register', 'App\Http\Controllers\UserController@register');
+
     $api->post('/auth', 'App\Http\Controllers\Auth\AuthController@backend');
 
     $api->group(['prefix' => 'users'], function ($api) {
