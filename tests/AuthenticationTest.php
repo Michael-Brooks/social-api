@@ -9,10 +9,7 @@ class AuthenticationTest extends TestCase
 {
     use DatabaseMigrations;
 
-
     /**
-     * A basic test example.
-     *
      * @return void
      */
     public function testGetAuthToken()
@@ -38,6 +35,9 @@ class AuthenticationTest extends TestCase
         ]);
     }
 
+    /**
+     * @return void
+     */
     public function testUserLogin()
     {
         $headers = ['Accept' => 'application/json'];
