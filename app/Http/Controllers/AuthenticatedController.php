@@ -62,7 +62,7 @@ class AuthenticatedController extends Controller
     {
         $user = $this->auth->user();
 
-        $friend = User::find($request->get('id'));
+        $friend = User::find($request->id);
 
         $user->addFriend($friend);
 
@@ -73,7 +73,7 @@ class AuthenticatedController extends Controller
     {
         $user = $this->auth->user();
 
-        $friendFromRequest = $username::find($request->id);
+        $friendFromRequest = User::find($request->id);
 
         $friendFromRequest->friends()->updateExistingPivot(
             $user->id,
@@ -81,13 +81,15 @@ class AuthenticatedController extends Controller
                 'approved' => 1
             ]
         );
+
+        return $this->response->created();
     }
 
-    public function ignoreFriendRequest(Request $request, $username)
+    public function ignoreFriendRequest(Request $request)
     {
         $user = $this->auth->user();
 
-        $friendFromRequest = $username::username($username);
+        $friendFromRequest = User::find($request->id);
 
         /**
          * Reason for setting this to 2 is because we need to flag it so it
@@ -99,5 +101,7 @@ class AuthenticatedController extends Controller
                 'approved' => 2
             ]
         );
+
+        return $this->response->created();
     }
 }
