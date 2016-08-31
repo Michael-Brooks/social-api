@@ -1,9 +1,6 @@
 <?php
 
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
-use App\User;
 
 class RegisterTest extends TestCase
 {

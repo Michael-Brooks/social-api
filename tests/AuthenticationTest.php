@@ -1,8 +1,6 @@
 <?php
 
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 use App\User;
 
 class AuthenticationTest extends TestCase
@@ -33,23 +31,5 @@ class AuthenticationTest extends TestCase
         $this->seeJsonStructure([
             'token'
         ]);
-    }
-
-    /**
-     * @return void
-     */
-    public function testUserLogin()
-    {
-        $headers = ['Accept' => 'application/json'];
-
-        $user = \App\User::find(1);
-
-        if (!is_null($user)) {
-            $token = JWTAuth::fromUser($user);
-            JWTAuth::setToken($token);
-            $headers['Authorization'] = 'Bearer '.$token;
-        }
-
-        return $headers;
     }
 }
