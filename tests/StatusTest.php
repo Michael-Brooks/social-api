@@ -10,28 +10,14 @@ class StatusTest extends TestCase
 
     public function testStatusCreate()
     {
-        $user = User::create(
-            [
-                'name'      => 'Taylor Otwell',
-                'username'  => 'test1',
-                'email'     => 'test@user.dev',
-                'password'  => 'secret',
-            ]
-        );
+        $user = factory(App\User::class)->create();
 
         $this->post('/status_updates/create', ['message' => 'This is a test message'], $this->headers($user))->seeStatusCode(201);
     }
 
     public function testStatusEdit()
     {
-        $user = User::create(
-            [
-                'name'      => 'Taylor Otwell',
-                'username'  => 'test1',
-                'email'     => 'test@user.dev',
-                'password'  => 'secret',
-            ]
-        );
+        $user = factory(App\User::class)->create();
 
         $status = new StatusUpdate();
         $status->message = 'This is a test message';
@@ -42,14 +28,7 @@ class StatusTest extends TestCase
 
     public function testStatusDelete()
     {
-        $user = User::create(
-            [
-                'name'      => 'Taylor Otwell',
-                'username'  => 'test1',
-                'email'     => 'test@user.dev',
-                'password'  => 'secret',
-            ]
-        );
+        $user = factory(App\User::class)->create();
 
         $status = new StatusUpdate();
         $status->message = 'This is a test message';
