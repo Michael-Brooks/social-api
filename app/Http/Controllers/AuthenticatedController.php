@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\StatusUpdate;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Helpers;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
 
 class AuthenticatedController extends Controller
@@ -40,22 +39,26 @@ class AuthenticatedController extends Controller
         return $this->response->created();
     }
 
-    public function editStatusUpdate(Request $request, $id)
+    public function editStatusUpdate(Request $request)
     {
         $user = $this->auth->user();
 
-        $comment = $user->statusUpdates->find($id);
+        $comment = $user->statusUpdates->find($request->id);
 
         $comment->update(['message' => $request->message]);
+
+        return $this->response->accepted();
     }
 
-    public function deleteStatusUpdate(Request $request, $id)
+    public function deleteStatusUpdate(Request $request)
     {
         $user = $this->auth->user();
 
-        $comment = $user->statusUpdates->find($id);
+        $comment = $user->statusUpdates->find($request->id);
 
         $comment->delete();
+
+        return $this->response->accepted();
     }
 
     public function addFriendRequest(Request $request)
