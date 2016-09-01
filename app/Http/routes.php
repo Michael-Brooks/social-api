@@ -34,11 +34,11 @@ $api->version('v1', function ($api) {
 $api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
     $api->get('/auth/login', 'App\Http\Controllers\AuthenticatedController@index');
 
-    $api->post('/status_updates/create', 'App\Http\Controllers\AuthenticatedController@createStatusUpdate');
-    $api->post('/status_updates/edit', 'App\Http\Controllers\AuthenticatedController@editStatusUpdate');
-    $api->post('/status_updates/delete', 'App\Http\Controllers\AuthenticatedController@deleteStatusUpdate');
+    $api->post('/status_updates/create', 'App\Http\Controllers\StatusController@createStatusUpdate');
+    $api->post('/status_updates/edit', 'App\Http\Controllers\StatusController@editStatusUpdate');
+    $api->post('/status_updates/delete', 'App\Http\Controllers\StatusController@deleteStatusUpdate');
 
-    $api->post('/friends/add', 'App\Http\Controllers\AuthenticatedController@addFriendRequest');
-    $api->post('/friends/approve', 'App\Http\Controllers\AuthenticatedController@approveFriendRequest');
-    $api->post('/friends/ignore', 'App\Http\Controllers\AuthenticatedController@ignoreFriendRequest');
+    $api->post('/friends/add', 'App\Http\Controllers\FriendController@addFriendRequest');
+    $api->post('/friends/approve', 'App\Http\Controllers\FriendController@approveFriendRequest');
+    $api->post('/friends/ignore', 'App\Http\Controllers\FriendController@ignoreFriendRequest');
 });
