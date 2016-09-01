@@ -9,17 +9,15 @@ class FriendsTest extends TestCase
 
     /**
      * @return void
-     *
-     * Currently this is failing tests, but not sure why...
      */
-    /*public function testFriendRequest()
+    public function testFriendRequest()
     {
         $user = factory(App\User::class)->create();
 
         $friend = factory(App\User::class)->create();
 
         $this->post('/friends/add', ['id' => $friend->id], $this->headers($user))->seeStatusCode(201);
-    }*/
+    }
 
     public function testApproveRequest()
     {
