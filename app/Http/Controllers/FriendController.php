@@ -67,4 +67,19 @@ class FriendController extends Controller
 
         return $this->response->created();
     }
+
+    /**
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function removeFriendRequest(Request $request)
+    {
+        $user = $this->auth->user();
+
+        $friend = User::find($request->id);
+
+        $user->removeFriend($friend);
+
+        return $this->response->accepted();
+    }
 }

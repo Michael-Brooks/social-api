@@ -41,4 +41,5 @@ $api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function
     $api->post('/friends/add', 'App\Http\Controllers\FriendController@addFriendRequest');
     $api->post('/friends/approve', 'App\Http\Controllers\FriendController@approveFriendRequest');
     $api->post('/friends/ignore', 'App\Http\Controllers\FriendController@ignoreFriendRequest');
+    $api->post('/friends/remove', 'App\Http\Controllers\FriendController@removeFriendRequest');
 });
