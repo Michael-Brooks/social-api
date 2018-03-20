@@ -1,6 +1,5 @@
-.env
 /vendor
-.vagrant
-Vagrantfile
+/.idea
+Homestead.json
 Homestead.yaml
-.idea
+.env

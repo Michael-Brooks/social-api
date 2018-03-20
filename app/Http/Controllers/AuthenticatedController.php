@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Dingo\Api\Http\Request;
@@ -7,14 +8,14 @@ use App\User;
 
 class AuthenticatedController extends Controller
 {
-    use Helpers;
+	use Helpers;
 
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function index (Request $request)
-    {
-        return $this->auth->user();
-    }
+	/**
+	 * @param Request $request
+	 *
+	 * @return mixed
+	 */
+	public function index( Request $request ) {
+		return $this->auth->user();
+	}
 }

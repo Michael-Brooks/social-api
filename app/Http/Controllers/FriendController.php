@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\User;
@@ -7,79 +8,75 @@ use Dingo\Api\Routing\Helpers;
 
 class FriendController extends Controller
 {
-    use Helpers;
+	use Helpers;
 
-    /**
-     * @param Request $request
-     * @return \Dingo\Api\Http\Response
-     */
-    public function addFriendRequest(Request $request)
-    {
-        $user = $this->auth->user();
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Dingo\Api\Http\Response
+	 */
+	public function addFriendRequest( Request $request )
+	{
+		$user   = $this->auth->user();
+		$friend = User::find( $request->id );
+		$user->addFriend( $friend );
 
-        $friend = User::find($request->id);
+		return $this->response->created();
+	}
 
-        $user->addFriend($friend);
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Dingo\Api\Http\Response
+	 */
+	public function approveFriendRequest( Request $request )
+	{
+		$user              = $this->auth->user();
+		$friendFromRequest = User::find( $request->id );
+		$friendFromRequest->friends()->updateExistingPivot(
+			$user->id,
+			[
+				'approved' => 1
+			]
+		);
 
-        return $this->response->created();
-    }
+		return $this->response->created();
+	}
 
-    /**
-     * @param Request $request
-     * @return \Dingo\Api\Http\Response
-     */
-    public function approveFriendRequest(Request $request)
-    {
-        $user = $this->auth->user();
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Dingo\Api\Http\Response
+	 */
+	public function ignoreFriendRequest( Request $request )
+	{
+		$user              = $this->auth->user();
+		$friendFromRequest = User::find( $request->id );
+		/**
+		 * Reason for setting this to 2 is because we need to flag it so it
+		 * doesn't show in the notifications again
+		 */
+		$friendFromRequest->friends()->updateExistingPivot(
+			$user->id,
+			[
+				'approved' => 2
+			]
+		);
 
-        $friendFromRequest = User::find($request->id);
+		return $this->response->created();
+	}
 
-        $friendFromRequest->friends()->updateExistingPivot(
-            $user->id,
-            [
-                'approved' => 1
-            ]
-        );
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Dingo\Api\Http\Response
+	 */
+	public function removeFriendRequest( Request $request )
+	{
+		$user   = $this->auth->user();
+		$friend = User::find( $request->id );
+		$user->removeFriend( $friend );
 
-        return $this->response->created();
-    }
-
-    /**
-     * @param Request $request
-     * @return \Dingo\Api\Http\Response
-     */
-    public function ignoreFriendRequest(Request $request)
-    {
-        $user = $this->auth->user();
-
-        $friendFromRequest = User::find($request->id);
-
-        /**
-         * Reason for setting this to 2 is because we need to flag it so it
-         * doesn't show in the notifications again
-         */
-        $friendFromRequest->friends()->updateExistingPivot(
-            $user->id,
-            [
-                'approved' => 2
-            ]
-        );
-
-        return $this->response->created();
-    }
-
-    /**
-     * @param Request $request
-     * @return \Dingo\Api\Http\Response
-     */
-    public function removeFriendRequest(Request $request)
-    {
-        $user = $this->auth->user();
-
-        $friend = User::find($request->id);
-
-        $user->removeFriend($friend);
-
-        return $this->response->accepted();
-    }
+		return $this->response->accepted();
+	}
 }
