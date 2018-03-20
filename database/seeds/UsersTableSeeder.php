@@ -25,6 +25,7 @@ class DefaultPopulator extends Seeder
     {
         $user = User::create(
             [
+                'username'  => 'taylor',
                 'name'      => 'Taylor Otwell',
                 'email'     => 'test@user.dev',
                 'password'  => bcrypt('secret'),
@@ -32,6 +33,7 @@ class DefaultPopulator extends Seeder
         );
         $user = User::create(
             [
+                'username'  => 'jeff',
                 'name'      => 'Jeffrey Way',
                 'email'     => 'test2@user.dev',
                 'password'  => bcrypt('secret'),
@@ -39,6 +41,7 @@ class DefaultPopulator extends Seeder
         );
         $user = User::create(
             [
+                'username'  => 'eric',
                 'name'      => 'Eric L Barnes',
                 'email'     => 'test3@user.dev',
                 'password'  => bcrypt('secret'),
