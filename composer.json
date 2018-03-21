@@ -10,7 +10,8 @@
         "vlucas/phpdotenv": "~2.2",
         "dingo/api": "2.0.0-alpha1",
         "tymon/jwt-auth": "1.0.*",
-        "barryvdh/laravel-cors": "^0.11.0"
+        "barryvdh/laravel-cors": "^0.11.0",
+        "aws/aws-sdk-php-laravel": "^3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

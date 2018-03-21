@@ -28,6 +28,10 @@ $api->version('v1', function ($api) {
 		$api->get('/{username}/friends', 'App\Http\Controllers\UserController@friends');
 		$api->get('/{username}/status_updates', 'App\Http\Controllers\StatusController@statusUpdates');
 	});
+
+	$api->post('/asset/upload', 'App\Http\Controllers\AssetController@upload');
+	$api->post('/asset/edit', 'App\Http\Controllers\AssetController@edit');
+	$api->post('/asset/delete', 'App\Http\Controllers\AssetController@delete');
 });
 
 /**

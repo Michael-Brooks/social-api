@@ -90,10 +90,13 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
+$app->register(Aws\Laravel\AwsServiceProvider::class);
 
 app('Dingo\Api\Auth\Auth')->extend('jwt', function ($app) {
 	return new Dingo\Api\Auth\Provider\JWT($app['Tymon\JWTAuth\JWTAuth']);
 });
+
+class_alias('Aws\Laravel\AwsFacade','AWS');
 
 /*
 |--------------------------------------------------------------------------
