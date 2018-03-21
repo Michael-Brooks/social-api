@@ -1,6 +1,8 @@
 <?php
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateStatusUpdatesTable extends Migration
 {
 	/**
@@ -11,14 +13,15 @@ class CreateStatusUpdatesTable extends Migration
 	public function up()
 	{
 		//
-		Schema::create('status_updates', function(Blueprint $table) {
-			$table->increments('id');
-			$table->text('message');
-			$table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
+		Schema::create( 'status_updates', function ( Blueprint $table ) {
+			$table->increments( 'id' );
+			$table->text( 'message' );
+			$table->integer( 'user_id' )->unsigned();
+			$table->foreign( 'user_id' )->references( 'id' )->on( 'users' );
 			$table->timestamps();
-		});
+		} );
 	}
+
 	/**
 	 * Reverse the migrations.
 	 *
@@ -27,6 +30,6 @@ class CreateStatusUpdatesTable extends Migration
 	public function down()
 	{
 		//
-		Schema::drop('status_updates');
+		Schema::drop( 'status_updates' );
 	}
 }
