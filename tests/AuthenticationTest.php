@@ -26,8 +26,6 @@ class AuthenticationTest extends TestCase
 			'password' => 'secret'
 		] );
 		// We should get back our token from authentication.
-		$this->seeJsonStructure( [
-			'token'
-		] );
+		$this->assertJson(true);
 	}
 }

@@ -13,6 +13,6 @@ class RegisterTest extends TestCase
 			'name'     => 'Michael Brooks',
 			'email'    => 'me@michaelbrooks.co.uk',
 			'password' => 'what_is_password'
-		] )->seeStatusCode( 201 );
+		] )->seeStatusCode( 200 );
 	}
 }

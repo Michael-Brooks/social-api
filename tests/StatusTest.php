@@ -11,7 +11,7 @@ class StatusTest extends TestCase
 	public function testStatusCreate()
 	{
 		$user = factory( User::class )->create();
-		$this->post( '/status_updates/create', [ 'message' => 'This is a test message' ], $this->headers( $user ) )->seeStatusCode( 201 );
+		$this->post( '/status_updates/create', [ 'message' => 'This is a test message' ], $this->headers( $user ) )->seeStatusCode( 200 );
 	}
 
 	public function testStatusEdit()
@@ -22,7 +22,7 @@ class StatusTest extends TestCase
 		$user->statusUpdates()->save( $status );
 		$this->post( '/status_updates/edit', [ 'id'      => $status->id,
 		                                       'message' => 'This is a test edit'
-		], $this->headers( $user ) )->seeStatusCode( 202 );
+		], $this->headers( $user ) )->seeStatusCode( 200 );
 	}
 
 	public function testStatusDelete()
@@ -31,6 +31,6 @@ class StatusTest extends TestCase
 		$status          = new StatusUpdate();
 		$status->message = 'This is a test message';
 		$user->statusUpdates()->save( $status );
-		$this->post( '/status_updates/delete', [ 'id' => $status->id ], $this->headers( $user ) )->seeStatusCode( 202 );
+		$this->post( '/status_updates/delete', [ 'id' => $status->id ], $this->headers( $user ) )->seeStatusCode( 200 );
 	}
 }

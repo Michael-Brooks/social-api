@@ -13,19 +13,19 @@ class FriendsTest extends TestCase
 	public function testFriendRequest() {
 		$user   = factory( User::class )->create();
 		$friend = factory( User::class )->create();
-		$this->post( '/friends/add', [ 'id' => $friend->id ], $this->headers( $user ) )->seeStatusCode( 201 );
+		$this->post( '/friends/add', [ 'id' => $friend->id ], $this->headers( $user ) )->seeStatusCode( 200 );
 	}
 
 	public function testApproveRequest() {
 		$user   = factory( User::class )->create();
 		$friend = factory( User::class )->create();
-		$this->post( '/friends/approve', [ 'id' => $user->id ], $this->headers( $friend ) )->seeStatusCode( 201 );
+		$this->post( '/friends/approve', [ 'id' => $user->id ], $this->headers( $friend ) )->seeStatusCode( 200 );
 	}
 
 	public function declineFriendRequest() {
 		$user   = factory( User::class )->create();
 		$friend = factory( User::class )->create();
-		$this->post( '/friends/ignore', [ 'id' => $user->id ], $this->headers( $friend ) )->seeStatusCode( 201 );
+		$this->post( '/friends/ignore', [ 'id' => $user->id ], $this->headers( $friend ) )->seeStatusCode( 200 );
 	}
 
 	/**
@@ -34,6 +34,6 @@ class FriendsTest extends TestCase
 	public function testFriendRemoval() {
 		$user   = factory( User::class )->create();
 		$friend = factory( User::class )->create();
-		$this->post( '/friends/remove', [ 'id' => $friend->id ], $this->headers( $user ) )->seeStatusCode( 202 );
+		$this->post( '/friends/remove', [ 'id' => $friend->id ], $this->headers( $user ) )->seeStatusCode( 200 );
 	}
 }
