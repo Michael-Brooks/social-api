@@ -45,7 +45,7 @@ class UserController extends Controller
 	 */
 	public function show( $username )
 	{
-		return User::username( $username )->get();
+		return User::username( $username )->first();
 	}
 
 	/**
