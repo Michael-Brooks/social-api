@@ -11,35 +11,7 @@
 |
 */
 
-$api = app('Dingo\Api\Routing\Router');
-
-/**
- *
- */
-$api->version('v1', function ($api) {
-	$api->get('/', function() {
-		return 'Your very own social networking website.';
-	});
-	$api->post('/register', 'App\Http\Controllers\UserController@register');
-	$api->post('/auth', 'App\Http\Controllers\Auth\AuthController@backend');
-	$api->group(['prefix' => 'users'], function ($api) {
-		$api->get('/', 'App\Http\Controllers\UserController@index');
-		$api->get('/{username}', 'App\Http\Controllers\UserController@show');
-		$api->get('/{username}/friends', 'App\Http\Controllers\UserController@friends');
-		$api->get('/{username}/status_updates', 'App\Http\Controllers\StatusController@statusUpdates');
-	});
-});
-
-/**
- *
- */
-$api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
-	$api->get('/auth/login', 'App\Http\Controllers\AuthenticatedController@index');
-	$api->post('/status_updates/create', 'App\Http\Controllers\StatusController@createStatusUpdate');
-	$api->post('/status_updates/edit', 'App\Http\Controllers\StatusController@editStatusUpdate');
-	$api->post('/status_updates/delete', 'App\Http\Controllers\StatusController@deleteStatusUpdate');
-	$api->post('/friends/add', 'App\Http\Controllers\FriendController@addFriendRequest');
-	$api->post('/friends/approve', 'App\Http\Controllers\FriendController@approveFriendRequest');
-	$api->post('/friends/ignore', 'App\Http\Controllers\FriendController@ignoreFriendRequest');
-	$api->post('/friends/remove', 'App\Http\Controllers\FriendController@removeFriendRequest');
+// We will use this to create some API documentation
+$router->get('/', function () {
+	return view('home');
 });

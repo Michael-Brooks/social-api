@@ -3,7 +3,6 @@
 use App\Http\Controllers\Controller;
 use Dingo\Api\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -14,7 +13,7 @@ class AuthController extends Controller
 		$this->auth = $auth;
 	}
 
-	public function backend( Request $request )
+	public function authenticate( Request $request )
 	{
 		// grab credentials from the request
 		$credentials = $request->input( 'email' ) ? $request->only( 'email', 'password' ) : $request->only( 'username', 'password' );
@@ -24,7 +23,7 @@ class AuthController extends Controller
 			if ( ! $token = $this->auth->attempt( $credentials ) ) {
 				return response()->json( [ 'error' => 'invalid_credentials' ], 401 );
 			}
-		} catch ( JWTException $e ) {
+		} catch ( \Exception $e ) {
 			// something went wrong whilst attempting to encode the token
 			return response()->json( [ 'error' => 'could_not_create_token' ], 500 );
 		}

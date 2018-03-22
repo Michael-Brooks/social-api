@@ -68,6 +68,11 @@ $app->middleware([
 	Barryvdh\Cors\HandleCors::class,
 ]);
 
+$app->routeMiddleware([
+	// ...
+	'cors' => \Barryvdh\Cors\HandleCors::class,
+]);
+
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
@@ -110,6 +115,7 @@ $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;
