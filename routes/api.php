@@ -35,9 +35,11 @@ $api->version('v1', function ($api) {
 		 */
 		$api->group(['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
 			$api->get('/auth/login', 'App\Http\Controllers\AuthenticatedController@index');
+
 			$api->post('/status_updates/create', 'App\Http\Controllers\StatusController@createStatusUpdate');
 			$api->post('/status_updates/edit', 'App\Http\Controllers\StatusController@editStatusUpdate');
 			$api->post('/status_updates/delete', 'App\Http\Controllers\StatusController@deleteStatusUpdate');
+
 			$api->post('/friends/add', 'App\Http\Controllers\FriendController@addFriendRequest');
 			$api->post('/friends/approve', 'App\Http\Controllers\FriendController@approveFriendRequest');
 			$api->post('/friends/ignore', 'App\Http\Controllers\FriendController@ignoreFriendRequest');
