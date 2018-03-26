@@ -20,22 +20,22 @@ class UserController extends Controller
 	/**
 	 * @param Request $request
 	 *
-	 * @return \Dingo\Api\Http\Response|void
+	 * @return \Dingo\Api\Http\Response
 	 * @throws \Illuminate\Validation\ValidationException
 	 */
 	public function register( Request $request )
 	{
+		// Validate request and throw ValidationException if data is incorrect
 		$this->validate( $request, [
 			'username' => 'required|unique:users',
 			'name'     => 'required',
 			'email'    => 'required|email|unique:users',
 			'password' => 'required'
 		] );
+
 		if ( User::create( $request->all() ) ) {
 			return $this->response->created();
 		}
-
-		return $this->response->errorBadRequest();
 	}
 
 	/**

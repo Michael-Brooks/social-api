@@ -29,10 +29,13 @@ class StatusController extends Controller
 	public function createStatusUpdate( Request $request )
 	{
 		$user = $this->auth->user();
+
+		// Validate request and throw ValidationException if incorrect
 		$this->validate( $request, [
 			'message' => 'required'
 		] );
-		$status          = new StatusUpdate();
+
+		$status = new StatusUpdate();
 		$status->message = $request->message;
 		$user->statusUpdates()->save( $status );
 

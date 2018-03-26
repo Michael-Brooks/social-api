@@ -14,10 +14,16 @@ class FriendController extends Controller
 	 * @param Request $request
 	 *
 	 * @return \Dingo\Api\Http\Response
+	 * @throws \Illuminate\Validation\ValidationException
 	 */
 	public function addFriendRequest( Request $request )
 	{
-		$user   = $this->auth->user();
+		$user = $this->auth->user();
+
+		$this->validate( $request, [
+			'id' => 'required',
+		] );
+
 		$friend = User::find( $request->id );
 		$user->addFriend( $friend );
 
@@ -28,10 +34,16 @@ class FriendController extends Controller
 	 * @param Request $request
 	 *
 	 * @return \Dingo\Api\Http\Response
+	 * @throws \Illuminate\Validation\ValidationException
 	 */
 	public function approveFriendRequest( Request $request )
 	{
-		$user              = $this->auth->user();
+		$user = $this->auth->user();
+
+		$this->validate( $request, [
+			'id' => 'required',
+		] );
+
 		$friendFromRequest = User::find( $request->id );
 		$friendFromRequest->friends()->updateExistingPivot(
 			$user->id,
@@ -47,11 +59,18 @@ class FriendController extends Controller
 	 * @param Request $request
 	 *
 	 * @return \Dingo\Api\Http\Response
+	 * @throws \Illuminate\Validation\ValidationException
 	 */
 	public function ignoreFriendRequest( Request $request )
 	{
-		$user              = $this->auth->user();
+		$user = $this->auth->user();
+
+		$this->validate( $request, [
+			'id' => 'required',
+		] );
+
 		$friendFromRequest = User::find( $request->id );
+
 		/**
 		 * Reason for setting this to 2 is because we need to flag it so it
 		 * doesn't show in the notifications again
@@ -70,10 +89,16 @@ class FriendController extends Controller
 	 * @param Request $request
 	 *
 	 * @return \Dingo\Api\Http\Response
+	 * @throws \Illuminate\Validation\ValidationException
 	 */
 	public function removeFriendRequest( Request $request )
 	{
 		$user   = $this->auth->user();
+
+		$this->validate( $request, [
+			'id' => 'required',
+		] );
+
 		$friend = User::find( $request->id );
 		$user->removeFriend( $friend );
 
