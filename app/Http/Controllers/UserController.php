@@ -22,15 +22,12 @@ class UserController extends Controller
 	 * @param Request $request
 	 *
 	 * @return \Dingo\Api\Http\Response
-	 * @throws \Illuminate\Validation\ValidationException
 	 */
 	public function register( Request $request )
 	{
-		$this->buildFailedValidationResponse($request, [
-			'unique'    => 'username/email must be unique'
-		]);
+		$getData = $request->all();
 
-		$validator = Validator::make($request->all(), [
+		$validator = Validator::make($getData, [
 			'username' => 'required|unique:users',
 			'name'     => 'required',
 			'email'    => 'required|email|unique:users',
@@ -41,7 +38,7 @@ class UserController extends Controller
 			return $validator->errors();
 		}
 
-		if ( User::create( $request->all() ) ) {
+		if ( User::create( $getData ) ) {
 			return $this->response->created();
 		}
 	}
