@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Helpers;
+use Validator;
 
 class UserController extends Controller
 {
@@ -25,13 +26,20 @@ class UserController extends Controller
 	 */
 	public function register( Request $request )
 	{
-		// Validate request and throw ValidationException if data is incorrect
-		$this->validate( $request, [
+		$this->buildFailedValidationResponse($request, [
+			'unique'    => 'username/email must be unique'
+		]);
+
+		$validator = Validator::make($request->all(), [
 			'username' => 'required|unique:users',
 			'name'     => 'required',
 			'email'    => 'required|email|unique:users',
 			'password' => 'required'
-		] );
+		]);
+
+		if ($validator->fails()) {
+			return $validator->errors();
+		}
 
 		if ( User::create( $request->all() ) ) {
 			return $this->response->created();
